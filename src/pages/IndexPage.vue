@@ -1,11 +1,11 @@
 <template>
-  <q-page padding>
+  <q-page class="row items-center justify-evenly">
     <DashboardTest />
-    testetstets
+    Bem vindo!
   </q-page>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 import DashboardTest from 'src/dashboard/DashboardTest.vue'
 
