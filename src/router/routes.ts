@@ -26,23 +26,23 @@ const routes: RouteRecordRaw[] = [
     children: [
       { name: 'home', path: 'pages/IndexPage.vue', component: () => import('pages/IndexPage.vue') },
       {
-        path: 'cidade',
+        path: 'exames',
         meta: {signIn: true},
         children: [
-          { name: 'cidade-adicionar', path: 'adicionar', component: () => import('pages/cidade/CidadeCreate.vue') },
+          { name: 'exame-adicionar', path: 'adicionar', component: () => import('pages/cidade/CidadeCreate.vue') },
           { name: 'cidade-visualizar', path: 'visualizar', component: () => import('pages/cidade/CidadeCreate.vue') },
           { name: 'cidade-editar', path: 'editar', component: () => import('pages/cidade/CidadeCreate.vue') },
           { name: 'cidade-listar', path: 'listar', component: () => import('pages/cidade/CidadeList.vue') }
         ]
       },
       {
-        path: 'sancoes',
+        path: 'exames',
         meta: {signIn: true},
         children: [
-          { name: 'sancoes-adicionar', path: 'adicionar', component: () => import('pages/sancoes/SancoesCreate.vue') },
-          { name: 'sancoes-visualizar', path: 'visualizar', component: () => import('pages/sancoes/SancoesCreate.vue') },
-          { name: 'sancoes-editar', path: 'editar', component: () => import('pages/sancoes/SancoesCreate.vue') },
-          { name: 'sancoes-listar', path: 'listar', component: () => import('pages/sancoes/SancoesList.vue') }
+          { name: 'exames-adicionar', path: 'adicionar', component: () => import('pages/exames/ExameCreate.vue') },
+          { name: 'exames-visualizar', path: 'visualizar', component: () => import('pages/exames/ExameCreate.vue') },
+          { name: 'exames-editar', path: 'editar', component: () => import('pages/exames/ExameCreate.vue') },
+          { name: 'exames-listar', path: 'listar', component: () => import('pages/sancoes/ExameList.vue') }
         ]
       },
       {

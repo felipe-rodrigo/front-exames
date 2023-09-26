@@ -4,7 +4,7 @@ import { useCommonStore } from "./common_store";
 import useNotify from "src/composable/UseNotify";
 import useDialog from "src/composable/UseDialog";
 import { Pagination } from "src/model/helper_interface";
-import { Pessoa, PessoaListResponse } from "src/model/pessoa_interface";
+import { Pessoa, PessoaListResponse } from "src/model/paciente_interface";
 
 const { notifyError, notifySuccess } = useNotify();
 const { notifyConfirmar } = useDialog();

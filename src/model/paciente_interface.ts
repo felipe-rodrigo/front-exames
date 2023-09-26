@@ -1,15 +1,15 @@
 import { Common, SpringBootResponse } from "./helper_interface";
 
-export interface PessoaListResponse extends SpringBootResponse {
+export interface PacienteListResponse extends SpringBootResponse {
   _embedded: {
-    pessoaResponseList: Pessoa[];
+    pacientesResponseList: Paciente[];
   };
 }
 
-export interface Pessoa extends Common {
+export interface Paciente extends Common {
   id: number;
   nome: string;
-  dtNascimento: Date;
+  dataNascimento: Date;
   endereco: string;
   telefone: string;
   cartaoSus: string;
