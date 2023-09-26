@@ -1,69 +1,57 @@
-import { api } from 'boot/axios'
+import { api } from "boot/axios";
 
-export default function useApi (url: string) {
-
+export default function useApi(url: string) {
   const list = async () => {
     try {
-      const { data } = await api.get(url)
-      return data
-
+      const { data } = await api.get(url);
+      return data;
     } catch (error: any) {
-      throw new Error(error)
+      throw new Error(error);
     }
-  }
+  };
 
   const getById = async (id: number) => {
     try {
-      const { data } = await api.get(`${url}/${id}`)
-      return data
-
+      const { data } = await api.get(`${url}/${id}`);
+      return data;
     } catch (error: any) {
-      throw new Error(error)
+      throw new Error(error);
     }
-  }
+  };
 
-  const post = async (form: any, headers: any) => {
-
+  const post = async (form: any, headers = null) => {
     try {
-      const { data } = await api.post(url, form)
-      return data
-
+      const { data } = await api.post(url, form);
+      return data;
     } catch (error: any) {
-      throw new Error(error)
+      throw new Error(error);
     }
-  }
+  };
 
   const update = async (form: any) => {
-
     try {
-
-      const { data } = await api.put(`${url}/${form.id}`, form)
-      return data
-
+      const { data } = await api.put(`${url}/${form.id}`, form);
+      return data;
     } catch (error: any) {
-      throw new Error(error)
+      throw new Error(error);
     }
-  }
+  };
 
-  const remove = async (id:any) => {
+  const remove = async (id: any) => {
     try {
-      const { data } = await api.delete(`${url}/${id}`)
+      const { data } = await api.delete(`${url}/${id}`);
 
-      return data
-
+      return data;
     } catch (error: any) {
-
-      throw new Error(error)
-
+      throw new Error(error);
     }
-
-  }
+  };
 
   return {
     list,
     post,
     update,
     remove,
-    getById
-  }
+    getById,
+  };
 }

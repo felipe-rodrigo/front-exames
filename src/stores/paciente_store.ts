@@ -4,12 +4,12 @@ import { useCommonStore } from "./common_store";
 import useNotify from "src/composable/UseNotify";
 import useDialog from "src/composable/UseDialog";
 import { Pagination } from "src/model/helper_interface";
-import { Pessoa, PessoaListResponse } from "src/model/paciente_interface";
+import { Paciente, PacienteListResponse } from "src/model/paciente_interface";
 
 const { notifyError, notifySuccess } = useNotify();
 const { notifyConfirmar } = useDialog();
 
-export const usePessoaStore = defineStore("pessoa", {
+export const usePacienteStore = defineStore("paciente", {
   state: () => {
     return {
       pagination: {
@@ -18,43 +18,45 @@ export const usePessoaStore = defineStore("pessoa", {
         page: 1,
         rowsPerPage: 10,
       } as Pagination,
-      pessoa: {} as Pessoa,
-      pessoaResponse: [] as Pessoa[],
-      estado: [] as string[],
+      paciente: {} as Paciente,
+      pacienteResponse: [] as Paciente[],
       searchString: "",
       isLoading: false,
       isError: false,
     };
   },
   getters: {
-    getPessoaListByFilter: (state) => {
-      return state.pessoaResponse.filter((pessoa) =>
-        pessoa.nome !== null
-          ? pessoa.nome
+    getPacienteListByFilter: (state) => {
+      return state.pacienteResponse.filter((paciente) =>
+        paciente.nome !== null
+          ? paciente.nome
               .toLocaleUpperCase()
               .includes(state.searchString.toUpperCase())
-          : pessoa.razaoSocial != null
-          ? pessoa.razaoSocial
+          : paciente.razaoSocial != null
+          ? paciente.razaoSocial
               .toLocaleLowerCase()
               .includes(state.searchString.toUpperCase())
-          : pessoa.documento.includes(state.searchString)
+          : paciente.documento.includes(state.searchString)
       );
     },
   },
+
+  // TODO: CRIAR A LISTA DE PACIENTES QUE ALIMENTA O ESTADO DE PACIENTES, SE BASEANDO NO EXAME_STORE.TS
+
   actions: {
-    getPessoaList() {
+    getPacienteList() {
       this.setIsLoading(true);
       this.setIsError(false);
-      useApi(`pessoa`)
+      useApi(`paciente`)
         .list()
         .then((data) => {
-          const response: PessoaListResponse = data;
+          const response: PacienteListResponse = data;
           if (!response) {
             this.setIsLoading(false);
             return;
           }
-          this.pessoaResponse = response._embedded
-            .pessoaResponseList as Pessoa[];
+          this.pacienteResponse = response._embedded
+            .pacienteResponseList as Paciente[];
           this.setIsLoading(false);
         })
         .catch((error) => {
@@ -66,12 +68,12 @@ export const usePessoaStore = defineStore("pessoa", {
       this.setIsLoading(true);
       this.setIsError(false);
 
-      const params = this.pessoa;
-      useApi("pessoa")
+      const params = this.paciente;
+      useApi("paciente")
         .post(params)
         .then(() => {
           this.setIsLoading(false);
-          this.router.push("/pessoa/listar");
+          this.router.push("/paciente/listar");
           notifySuccess("Cadastro efetuado com sucesso!");
         })
         .catch((error) => {
@@ -83,13 +85,13 @@ export const usePessoaStore = defineStore("pessoa", {
     editar() {
       this.setIsLoading(true);
       this.setIsError(false);
-      const params = this.pessoa;
+      const params = this.paciente;
 
-      useApi("pessoa")
+      useApi("paciente")
         .update(params)
         .then(({ data }) => {
           this.setIsLoading(false);
-          this.router.push("/pessoa/listar");
+          this.router.push("/paciente/listar");
           notifySuccess("Cadastro alterado com sucesso!");
         })
         .catch((error) => {
@@ -102,10 +104,10 @@ export const usePessoaStore = defineStore("pessoa", {
       this.setIsLoading(true);
       this.setIsError(false);
       const callback = () => {
-        return useApi("pessoa")
-          .remove(this.pessoa.id)
+        return useApi("paciente")
+          .remove(this.paciente.id)
           .then(({ data }) => {
-            this.getPessoaList();
+            this.getPacienteList();
             this.setIsLoading(false);
           })
           .catch((error) => {
@@ -115,8 +117,8 @@ export const usePessoaStore = defineStore("pessoa", {
           });
       };
       return notifyConfirmar(
-        "Pessoa",
-        "A pessoa <b>" + this.pessoa.nome + " </b>será removida!",
+        "Paciente",
+        "A paciente <b>" + this.paciente.nome + " </b>será removida!",
         callback
       ).onCancel(() => {
         this.setIsLoading(false);

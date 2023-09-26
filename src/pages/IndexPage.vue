@@ -6,14 +6,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import DashboardTest from 'src/dashboard/DashboardTest.vue'
+import { defineComponent } from "vue";
+import DashboardTest from "src/dashboard/DashboardTest.vue";
 
 export default defineComponent({
-
-  name: 'IndexPage',
+  name: "IndexPage",
   components: {
-    DashboardTest
-  }
-})
+    DashboardTest,
+  },
+});
 </script>

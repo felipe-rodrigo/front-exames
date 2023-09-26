@@ -91,7 +91,7 @@ export default defineComponent({
           Gestão de Exames
         </q-toolbar-title>
 
-        <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
+        <!-- <q-btn dense flat round icon="menu" @click="toggleRightDrawer" /> -->
       </q-toolbar>
 
       <!-- <q-tabs align="left">
@@ -107,12 +107,17 @@ export default defineComponent({
       <q-scroll-area class="fit">
         <q-list>
           <template v-for="(menuItem, index) in menuList" :key="index">
-            <q-item clickable :active="menuItem.label === 'Outbox'" v-ripple>
+            <q-item
+              clickable
+              :active="menuItem.label === 'Outbox'"
+              v-ripple
+              :to="{ name: 'exame-create' }"
+            >
               <q-item-section avatar>
                 <q-icon :name="menuItem.icon" size="xs" />
               </q-item-section>
               <q-item-section>
-                {{  menuItem.label  }}
+                {{ menuItem.label }}
               </q-item-section>
             </q-item>
             <q-separator :key="'sep' + index" v-if="menuItem.separator" />
@@ -120,9 +125,6 @@ export default defineComponent({
         </q-list>
       </q-scroll-area>
     </q-drawer>
-
-
-
 
     <q-page-container>
       <router-view />
@@ -140,9 +142,9 @@ export default defineComponent({
       <q-toolbar>
         <q-toolbar-title class="text-white row gt-">
           <div class="col-12 col-md text-center text-lg-left q-px-md">
-          <q-avatar>
-            <img src="../../public/redondo_azul.png">
-          </q-avatar>
+            <q-avatar>
+              <img src="../../public/redondo_azul.png" />
+            </q-avatar>
             Gestão de Exames
           </div>
         </q-toolbar-title>
@@ -170,188 +172,43 @@ export default {
     const commonStore = useCommonStore();
     const menuList = [
       {
-        icon: 'fa-solid fa-user',
-        label: 'Minha conta',
-        separator: true
+        icon: "fa-solid fa-user",
+        label: "Criar Exame",
+        separator: true,
       },
-      {
-        icon: 'fa-solid fa-grip',
-        label: 'aplicativos',
-        separator: false
-      },
-      {
-        icon: 'fa-solid fa-bell',
-        label: 'Notificações',
-        separator: false
-      },
-      {
-        icon: 'fa-solid fa-gear',
-        label: 'Configurações',
-        separator: true
-      },
-      {
-        icon: 'fa-solid fa-arrow-right-from-bracket',
-        label: 'Sair',
-        separator: true
-      },
-      {
-        icon: 'fa-solid fa-circle-question',
-        iconColor: 'primary',
-        label: 'Help',
-        separator: false
-      }
-    ]
-    const menuLogado = [
-      {
-        name: 'Área administrativa',
-        child: [
-          {
-            name: "Início",
-            fontIcon: "fa-solid fa-circle-dot",
-            route: 'home'
-          },
-          {
-            name: "Cidade",
-            fontIcon: "fa-solid fa-circle-dot",
-            child: [
-              {
-                name: 'Listar Cidades',
-                route: 'cidade-listar',
-                fontIcon: 'fa-solid fa-list cge',
-              },
-              {
-                name: 'Adicionar Cidade',
-                route: 'cidade-adicionar',
-                fontIcon: 'fa-solid fa-circle-plus cge',
-              }
-            ]
-          },
-          {
-            name: "Motivo de Alteração",
-            fontIcon: "fa-solid fa-circle-dot",
-            child: [
-              {
-                name: 'Listar Motivos de Alteração',
-                route: 'motivoAlteracao-listar',
-                fontIcon: 'fa-solid fa-list cge',
-              },
-              {
-                name: 'Adicionar Motivo de Alteração',
-                route: 'motivoAlteracao-adicionar',
-                fontIcon: 'fa-solid fa-circle-plus cge',
-              }
-            ]
-          },
-          {
-            name: "Órgão",
-            fontIcon: "fa-solid fa-circle-dot",
-            child: [
-              {
-                name: 'Listar Órgão',
-                route: 'orgao-listar',
-                fontIcon: 'fa-solid fa-list cge',
-              },
-              {
-                name: 'Adicionar Órgão',
-                route: 'orgao-adicionar',
-                fontIcon: 'fa-solid fa-circle-plus cge',
-              }
-            ]
-          },
-          {
-            name: "Pessoa",
-            fontIcon: "fa-solid fa-circle-dot",
-            child: [
-              {
-                name: 'Listar Pessoa',
-                route: 'pessoa-listar',
-                fontIcon: 'fa-solid fa-list cge',
-              },
-              {
-                name: 'Adicionar Pessoa',
-                route: 'pessoa-adicionar',
-                fontIcon: 'fa-solid fa-circle-plus cge',
-              }
-            ]
-          },
-          {
-            name: "Sanção",
-            fontIcon: "fa-solid fa-circle-dot",
-            child: [
-              {
-                name: 'Listar Sanções',
-                route: 'sancoes-listar',
-                fontIcon: 'fa-solid fa-list cge',
-              },
-              {
-                name: 'Adicionar Sanção',
-                route: 'sancoes-adicionar',
-                fontIcon: 'fa-solid fa-circle-plus cge',
-              }
-            ]
-          },
-          {
-            name: "Status",
-            fontIcon: "fa-solid fa-circle-dot",
-            child: [
-              {
-                name: 'Listar Status',
-                route: 'status-listar',
-                fontIcon: 'fa-solid fa-list cge',
-              },
-              {
-                name: 'Adicionar Status',
-                route: 'status-adicionar',
-                fontIcon: 'fa-solid fa-circle-plus cge',
-              }
-            ]
-          },
-          {
-            name: "Tipo de Sanção",
-            fontIcon: "fa-solid fa-circle-dot",
-            child: [
-              {
-                name: 'Listar Tipos de Sanção',
-                route: 'tipoSancao-listar',
-                fontIcon: 'fa-solid fa-list cge',
-              },
-              {
-                name: 'Adicionar Tipo de Sanção',
-                route: 'tipoSancao-adicionar',
-                fontIcon: 'fa-solid fa-circle-plus cge',
-              }
-            ]
-          },
-          {
-            name: "Unidade de Valor",
-            fontIcon: "fa-solid fa-circle-dot",
-            child: [
-              {
-                name: 'Listar Unidades de Valor',
-                route: 'unidadeValor-listar',
-                fontIcon: 'fa-solid fa-list cge',
-              },
-              {
-                name: 'Adicionar Unidade de Valor',
-                route: 'unidadeValor-adicionar',
-                fontIcon: 'fa-solid fa-circle-plus cge',
-              }
-            ]
-          },
 
-
-
-        ]
-      }
+      // {
+      //   icon: "fa-solid fa-grip",
+      //   label: "aplicativos",
+      //   separator: false,
+      // },
+      // {
+      //   icon: "fa-solid fa-bell",
+      //   label: "Notificações",
+      //   separator: false,
+      // },
+      // {
+      //   icon: "fa-solid fa-gear",
+      //   label: "Configurações",
+      //   separator: true,
+      // },
+      // {
+      //   icon: "fa-solid fa-arrow-right-from-bracket",
+      //   label: "Sair",
+      //   separator: true,
+      // },
+      // {
+      //   icon: "fa-solid fa-circle-question",
+      //   iconColor: "primary",
+      //   label: "Help",
+      //   separator: false,
+      // },
     ];
-    const menu = [...menuLogado];
-
 
     return {
       route,
       drawer: ref(false),
       drawerRight: ref(false),
-      menu,
       menuList,
       miniState,
       commonStore,
@@ -362,16 +219,6 @@ export default {
       },
 
       rightDrawerOpen,
-      toggleRightDrawer() {
-        rightDrawerOpen.value = !rightDrawerOpen.value;
-      },
-
-      drawerClick(e: { stopPropagation: () => void; }) {
-        if (miniState.value) {
-          miniState.value = false
-          e.stopPropagation()
-        }
-      }
     };
   },
   methods: {
@@ -382,8 +229,10 @@ export default {
     routesSelected(current: string, child: any[]): boolean {
       const route = useRoute();
       const nameRoute = route.name as string;
-      return [current].includes(nameRoute) || child ? child?.map(x => x.route).includes(nameRoute) : false;
-    }
-  }
+      return [current].includes(nameRoute) || child
+        ? child?.map((x) => x.route).includes(nameRoute)
+        : false;
+    },
+  },
 };
 </script>
