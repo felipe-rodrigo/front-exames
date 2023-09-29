@@ -56,7 +56,7 @@ export const usePacienteStore = defineStore("paciente", {
             return;
           }
           this.pacienteResponse = response._embedded
-            .pacienteResponseList as Paciente[];
+            .pacientesResponseList as Paciente[];
           this.setIsLoading(false);
         })
         .catch((error) => {

@@ -111,7 +111,7 @@ export default defineComponent({
               clickable
               :active="menuItem.label === 'Outbox'"
               v-ripple
-              :to="{ name: 'exame-create' }"
+              :to="{ name: menuItem.rota }"
             >
               <q-item-section avatar>
                 <q-icon :name="menuItem.icon" size="xs" />
@@ -120,7 +120,6 @@ export default defineComponent({
                 {{ menuItem.label }}
               </q-item-section>
             </q-item>
-            <q-separator :key="'sep' + index" v-if="menuItem.separator" />
           </template>
         </q-list>
       </q-scroll-area>
@@ -175,13 +174,15 @@ export default {
         icon: "fa-solid fa-user",
         label: "Criar Exame",
         separator: true,
+        rota: "exame-create",
       },
 
-      // {
-      //   icon: "fa-solid fa-grip",
-      //   label: "aplicativos",
-      //   separator: false,
-      // },
+      {
+        icon: "fa-solid fa-list",
+        label: "Listar Exame",
+        separator: false,
+        rota: "exame-list",
+      },
       // {
       //   icon: "fa-solid fa-bell",
       //   label: "Notificações",

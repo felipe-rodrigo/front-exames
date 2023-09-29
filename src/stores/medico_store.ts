@@ -1,57 +1,56 @@
 import { defineStore } from "pinia";
 import useApi from "src/composable/UseApi";
-import { Exame, ExameListResponse } from "src/model/exame_interface";
+import { Medico, MedicoListResponse } from "src/model/medico_interface";
 import axios, { AxiosInstance } from "axios";
-// import { useQuasar, Loading } from "quasar";
+import { useQuasar, Loading } from "quasar";
 
 const url = "http://localhost:8080";
-export const useExameStore = defineStore("exame", {
+export const useMedicoStore = defineStore("medico", {
    state: () => {
     return {
-      exame: {
-    
+      medico: {
+
         idMedico: 0,
         idPaciente: 0,
-        dataHoraExame: "",
+        dataHoraMedico: "",
         observacao: "",
         resultado: "",
       },
-      examesResponse: [] as Exame[],
+      medicosResponse: [] as Medico[],
       isLoading: false,
       isError: false,
       scroll: Object,
     };
   },
   actions: {
-    getExameList() {
+    getMedicoList() {
       this.setIsLoading(true);
       this.setIsError(false);
-      useApi('exames/listar').list()
+      useApi('medicos/listar').list()
       .then((data) => {
-        const response: ExameListResponse = data;
+        const response: MedicoListResponse = data;
         if (!response) {
           this.setIsLoading(false);
           return;
         }
-        this.examesResponse = response;
-
+        this.medicosResponse = response;
           this.setIsLoading(false);
         })
         .catch((error) => {
-
+          console.log(error);
           this.setIsError(true);
           this.setIsLoading(false);
         });
 
 
-      // axios.get(`${url}/exames/listar`).then((data) => {
+      // axios.get(`${url}/medicos/listar`).then((data) => {
       //   const response = data;
       //   if (!response) {
       //     this.setIsLoading(false);
       //     return;
       //   }
-      //   this.examesResponse = response.data;
-      //   console.log(this.examesResponse)
+      //   this.medicosResponse = response.data;
+      //   console.log(this.medicosResponse)
       //       this.setIsLoading(false);
       // })
       // .catch((error) => {
@@ -62,12 +61,12 @@ export const useExameStore = defineStore("exame", {
     },
 
 
-    postExame() {
+    postMedico() {
       this.setIsLoading(true);
       this.setIsError(false);
 
-      const params = this.exame;
-      useApi("exames/adicionar")
+      const params = this.medico;
+      useApi("medicos/adicionar")
         .post(params)
         .then(() => {
           this.setIsLoading(false);
@@ -80,17 +79,17 @@ export const useExameStore = defineStore("exame", {
           //notifyError(error.message);
         });
     },
-    // getExameList() {
+    // getMedicoList() {
     //   this.setIsLoading(true);
     //   this.setIsError(false);
-    //   useApi(`exame`).list()
+    //   useApi(`medico`).list()
     //     .then((data) => {
-    //       const response: ExameListResponse = data;
+    //       const response: MedicoListResponse = data;
     //       if (!response) {
     //         this.setIsLoading(false);
     //         return;
     //       }
-    //       this.exameResponse = response._embedded.exameResponseList as Exame[];
+    //       this.medicoResponse = response._embedded.medicoResponseList as Medico[];
     //       this.setIsLoading(false);
     //     })
     //     .catch((error) => {

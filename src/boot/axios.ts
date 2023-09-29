@@ -10,11 +10,10 @@
 
 // export { api }
 
-import { boot } from "quasar/wrappers";
-import axios, { AxiosInstance } from "axios";
-import { useOauthStore } from "stores/oauth.store";
+import { boot } from 'quasar/wrappers';
+import axios, { AxiosInstance } from 'axios';
 
-declare module "@vue/runtime-core" {
+declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $axios: AxiosInstance;
   }
@@ -29,7 +28,8 @@ declare module "@vue/runtime-core" {
 
 //todo
 //const api = axios.create({ baseURL: process.env.API });
-const api = "http://localhost:8080";
+//const api = 'http://localhost:8080';
+const api = axios.create({ baseURL: 'http://localhost:8080' });
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
